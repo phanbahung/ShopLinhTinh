@@ -1,0 +1,196 @@
+﻿@model List<Model.EF.Product>
+
+@{
+    //ViewBag.Title = "IndexNew";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    // var slides = (List<Model.EF.Slide>)ViewBag.Slides;
+    // var slides = (List<Model.EF.Product>)ViewBag.Slides;
+    // var listFeatureProducts = (List<Model.EF.Product>)ViewBag.ListFeatureProducts;  // Chưa xài đến
+
+    var listLeftBottom = (List<Model.EF.Product>)ViewBag.ListLeftBottom;
+    var listSlider = (List<Model.EF.Product>)ViewBag.Slides;
+}
+
+@section  NoiBatSlide
+{
+
+    <div class="header_bottom_left">
+
+        @{var index1 = 0;}
+        @foreach (var item in listLeftBottom)
+    {
+        if ((index1 % 2) == 0)
+        {  @Html.Raw("<div class=\"section group\">");
+        }
+
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+            <div class="listview_1_of_2 images_1_of_2">
+                <div class="listimg listimg_2_of_1">
+                    <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+                </div>
+                <div class="text list_2_of_1">
+                    <h2>@item.Name</h2>
+                    <p>@item.Description.Substring(0, 30) ...</p>
+                    <div class="button"><span><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ</a></span></div>
+                </div>
+            </div>
+
+            if (((index1 + 1) % 2) == 0)
+            { @Html.Raw("</div>");
+        }
+        index1++;
+    }
+
+
+
+        <div class="clear"></div>
+    </div>
+    <div class="header_bottom_right_images">
+        <!-- FlexSlider -->
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    @foreach (var item in listSlider)
+                    {
+                        //var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;                      
+                        var url = "/dich-vu";
+
+                        <li>
+                            <div class="images_1_of_1">
+                                <div class="listimg1_1 listimg_1_of_1">
+                                    <a href="@url"><img src="@item.Image" alt="" /></a>                                   
+                                </div>
+                               
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </section>
+        <!-- FlexSlider -->
+    </div>
+    <div class="clear"></div>
+
+}
+
+<div class="content">
+
+    <div class="content_bottom">
+        <div class="heading">
+            <h3>SẢN PHẨM MỚI NHẤT</h3>
+        </div>
+        @*<div class="sort">
+                <p>
+                    Sort by:
+                    <select>
+                        <option>Lowest Price</option>
+                        <option>Highest Price</option>
+                        <option>Lowest Price</option>
+                        <option>Lowest Price</option>
+                        <option>Lowest Price</option>
+                        <option>In Stock</option>
+                    </select>
+                </p>
+            </div>
+            <div class="show">
+                <p>
+                    Show:
+                    <select>
+                        <option>4</option>
+                        <option>8</option>
+                        <option>12</option>
+                        <option>16</option>
+                        <option>20</option>
+                        <option>In Stock</option>
+                    </select>
+                </p>
+            </div>*@
+        <div class="page-no">
+            <!--Phân trang-->
+            @if (ViewBag.TotalPage > 1)
+            {
+                var pageDisplay = (int)ViewBag.MaxPage;
+                int totalPage = (int)ViewBag.TotalPage;
+                int currentPage = ((int)ViewBag.Page);
+
+                // Create numeric links
+                var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+
+                var link = "/home/index";
+                <nav>
+                    <ul class="pagination">
+                        @if (currentPage > ViewBag.First)
+                {
+                            <li><a href="@link?page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                            <li>
+                                <a href="@link?page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
+                            </li>
+
+                        }
+                        @for (int i = startPageIndex; i <= endPageIndex; i++)
+                        {
+                            if (currentPage == i)
+                            {
+
+                                <li> <a href="@link?page=@i" class="active" title="Trang @i">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@link?page=@i" title="Trang @i" class="btn btn-default">@i</a></li>
+                            }
+                        }
+                        @if (currentPage < totalPage)
+                        {
+                            <li><a href="@link?page=@ViewBag.Next" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
+                            <li> <a href="@link?page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                        }
+                    </ul>
+                </nav>
+
+            }
+            else
+            {
+                <!----<span>Không có bản ghi nào</span>-->
+            }
+            <!-----------Hết Phân trang-->
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @{var index = 0;}
+    @foreach (var item in Model)
+    {
+        if ((index % 4) == 0)
+        {  @Html.Raw("<div class=\"section group\">");
+        }
+
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="grid_1_of_4 images_1_of_4">
+            <a href="@url">
+                    <img src="@item.Image" alt="@item.Name" /> 
+                    <h2>@item.Name</h2>
+            </a>           
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <a href="/them-gio-hang?productId=@item.ID&quantity=1" class="btn btn-default btn-md">
+                            <span class="glyphicon glyphicon-shopping-cart "></span> Thêm vào giỏ
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+</div>
+
+        if (((index + 1) % 4) == 0)
+        { @Html.Raw("</div>");
+        }
+
+        index++;
+    }
+
+
+</div>

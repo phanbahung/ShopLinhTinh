@@ -1,0 +1,39 @@
+﻿@model OnlineShop.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<div class="content">
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="login_panel">
+        <h3>Đăng nhập</h3>      
+        <form action="hello" method="get" id="member">            
+            Tên đăng nhập: @Html.TextBoxFor(model => model.UserName, new { @class = "field" })   
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </p>                     
+             Mật khẩu:@Html.PasswordFor(model => model.Password, new { @class = "field" })     
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </p>    
+        </form> 
+        <input type="submit" value="Đăng nhập" class="btn btn-default" />
+        <p class="note"></p>
+        <p class="note"></p>
+        <p class="note">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+        <p class="note"><a href="/user/forgot">Lấy lại mật khẩu</a> </p>
+        <p class="note"><a href="/user/register">Tạo tài khoản mới</a></p>
+        
+    </div>
+
+    }
+
+ 
+    <div class="clear"></div>
+</div>
+

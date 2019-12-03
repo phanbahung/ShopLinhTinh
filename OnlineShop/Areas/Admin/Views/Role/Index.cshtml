@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Model.EF.Role>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Danh sách tin tức
+}
+@section jsFooter{
+
+}
+<h2>Index</h2>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Role</th>
+            <th>Mô tả</th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>            
+        </tr>
+}
+       
+    </tbody>
+</table>

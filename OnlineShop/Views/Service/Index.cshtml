@@ -1,0 +1,196 @@
+﻿@model List<Model.EF.Product>
+@{
+    ViewBag.Title = "Dịch vụ cho thuê căn hộ - Nha Trang";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+    .view-group {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    .thumbnail {
+        margin-bottom: 30px;
+        padding: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+
+    .item.list-group-item {
+        float: none;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 30px;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        border: 0;
+    }
+        .item.list-group-item .img-event {
+            float: left;
+            width: 30%;
+        }
+
+        .item.list-group-item .list-group-image {
+            margin-right: 10px;
+        }
+
+        .item.list-group-item .thumbnail {
+            margin-bottom: 0px;
+            display: inline-block;
+        }
+
+        .item.list-group-item .caption {
+            float: left;
+            width: 70%;
+            margin: 0;
+        }
+
+        .item.list-group-item:before, .item.list-group-item:after {
+            display: table;
+            content: " ";
+        }
+
+        .item.list-group-item:after {
+            clear: both;
+        }
+
+
+</style>  
+
+<div class="page-no">
+    <!--Phân trang-->
+    @if (ViewBag.TotalPage > 1)
+            {
+                var pageDisplay = (int)ViewBag.MaxPage;
+                int totalPage = (int)ViewBag.TotalPage;
+                int currentPage = ((int)ViewBag.Page);
+
+                // Create numeric links
+                var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+
+                var link = "/Service/index";// + category.MetaTitle + "-" + category.ID;
+        <nav>
+            <ul class="pagination">
+                @if (currentPage > ViewBag.First)
+                {
+                    <li><a href="@link?page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                            <li>
+                                <a href="@link?page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
+                            </li>
+
+                }
+                @for (int i = startPageIndex; i <= endPageIndex; i++)
+                {
+                    if (currentPage == i)
+                    {
+
+                        <li> <a href="@link?page=@i" class="active" title="Trang @i">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@link?page=@i" title="Trang @i" class="btn btn-default">@i</a></li>
+                    }
+                }
+                @if (currentPage < totalPage)
+                {
+                    <li><a href="@link?page=@ViewBag.Next" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
+                            <li> <a href="@link?page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                }
+            </ul>
+        </nav>
+
+    }
+    else
+    {
+                <!----<span>Không có bản ghi nào</span>-->
+    }
+    <!-----------Hết Phân trang-->
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 my-3">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-info" id="list">
+                        Hiển thị chi tiết
+                    </button>
+                    <button class="btn btn-danger" id="grid">
+                        Hiển thị lưới   
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div id="products" class="row view-group">
+     
+        @foreach (var item in Model)
+        {
+            // 400 250
+             var url = "/dat-phong/" + item.MetaTitle + "-" + item.ID;
+
+             <div class="item col-xs-4 col-lg-4">
+                        <div class="thumbnail card">
+                            <div class="img-event">
+                                <img class="group list-group-image img-fluid" src="@item.Image" alt="" />
+                            </div>
+                            <div class="caption card-body">
+                                <h4 class="group card-title inner list-group-item-heading">
+                                   @item.Name</h4>
+                                <p class="group inner list-group-item-text">
+                                   @item.Description
+                                    <a href="@url"> Xem thêm ...</a>
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                          Giá: @item.Price</p>
+                                    </div>                                  
+
+                                    <div class="col-xs-12 col-md-5">
+                                            <a href="@url" class="btn btn-success btn-md">
+                                                <span class="glyphicon glyphicon-book "></span> Đặt ngay
+                                           </a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                </div>
+        }
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#products .item').addClass('list-group-item');
+        $('#products .item').removeClass('grid-group-item');
+
+    $('#list').click(function (event) {
+        event.preventDefault();
+        $('#products .item').addClass('list-group-item');
+            });
+    $('#grid').click(function (event) {
+        event.preventDefault();
+        $('#products .item').removeClass('list-group-item');
+        $('#products .item').addClass('grid-group-item');
+            });
+        });
+</script>

@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "IndexNew";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+
+    var slides = (List<Model.EF.Slide>)ViewBag.Slides;
+    var listNewProducts = (List<Model.EF.Product>)ViewBag.NewProducts;
+    var listFeatureProducts = (List<Model.EF.Product>)ViewBag.ListFeatureProducts;
+    var listLeftBottom = (List<Model.EF.Product>)ViewBag.ListLeftBottom;
+    var listSlider = (List<Model.EF.Product>)ViewBag.ListLeftBottom;
+}
+
+@section  NoiBatSlide
+{
+
+<div class="header_bottom_left">
+
+    @{var index1 = 0;}
+    @foreach (var item in listLeftBottom)
+    {
+        if ((index1 % 2) == 0)
+        {  @Html.Raw("<div class=\"section group\">");
+        }
+
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="listview_1_of_2 images_1_of_2">
+            <div class="listimg listimg_2_of_1">
+                <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+            </div>
+            <div class="text list_2_of_1">
+                <h2>@item.Name</h2>
+                <p>@item.Description.Substring(0,30) ...</p>
+                <div class="button"><span><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ</a></span></div>
+            </div>
+        </div>
+
+        if (((index1 + 1) % 2) == 0)
+        { @Html.Raw("</div>");
+        }
+        index1++;
+    }
+
+   
+
+    <div class="clear"></div>
+</div>
+<div class="header_bottom_right_images">
+    <!-- FlexSlider -->
+    <section class="slider">
+        <div class="flexslider">
+            <ul class="slides">
+            @foreach (var item in listSlider)
+            {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;                
+                @*<li><a href="@url"><img src="@item.Image" alt="@item.Name" /></a> </li>*@
+
+                <li>
+                    <div class="images_1_of_1">
+                        <div class="listimg1_1 listimg_2_of_1">
+                            <a href="@url"><img src="@item.Image" alt="" /></a>
+                        </div>
+                        <div class="text list_2_of_1">
+                            <h2>@item.Name</h2>
+                            <p>@item.Description</p>
+                            <div class="button"><span><a href="/them-gio-hang?productId=@item.ID&quantity=1">Mua ngay kẻo lỡ</a></span></div>
+                        </div>
+                    </div>
+                </li>
+
+            }
+            </ul>
+        </div>
+    </section>
+    <!-- FlexSlider -->
+</div>
+<div class="clear"></div>    
+    
+    }
+
+<div class="content">
+   
+    <div class="content_bottom">
+        <div class="heading">
+            <h3>SẢN PHẨM MỚI NHẤT</h3>
+        </div>
+        @*<div class="sort">
+            <p>
+                Sort by:
+                <select>
+                    <option>Lowest Price</option>
+                    <option>Highest Price</option>
+                    <option>Lowest Price</option>
+                    <option>Lowest Price</option>
+                    <option>Lowest Price</option>
+                    <option>In Stock</option>
+                </select>
+            </p>
+        </div>
+        <div class="show">
+            <p>
+                Show:
+                <select>
+                    <option>4</option>
+                    <option>8</option>
+                    <option>12</option>
+                    <option>16</option>
+                    <option>20</option>
+                    <option>In Stock</option>
+                </select>
+            </p>
+        </div>*@
+        <div class="page-no">
+            <p>
+                Result Pages:<ul>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li>[<a href="#"> Next>>></a>]</li>
+                </ul>
+            </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+       
+        @{var index = 0;}
+        @foreach (var item in listNewProducts)
+        {
+            if ((index % 4) == 0) {  @Html.Raw("<div class=\"section group\">");}
+
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href = "@url"><img src="@item.Image" alt="@item.Name"/></a>
+                    <a href="@url"><h2>@item.Name</h2></a>                    
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@(item.Price.HasValue? item.Price.Value.ToString("N0") : "Liên hệ")</span></p>
+                        </div>
+                        <div class="add-cart">                                                                                        
+                            <a href="/them-gio-hang?productId=@item.ID&quantity=1" class="btn btn-default btn-md">
+                                <span class="glyphicon glyphicon-shopping-cart "></span> Thêm vào giỏ
+                            </a>                          
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+              if (((index+1) % 4) == 0){ @Html.Raw("</div>");}
+              index++;
+        }
+
+   
+</div>

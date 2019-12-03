@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Model.ViewModel.OrderDetailViewModel>
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+
+}
+@section jsFooter{
+
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Danh sách sản phẩm (Products)
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                {
+                    <div class="row form-group">
+                        <div class="col-lg-12">
+                            <div class="col-md-4">
+                                <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                <a class="btn btn-primary" href="/Admin/Product/Create">Thêm mới</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Code</th>
+                                <th>Hình ảnh</th>                               
+                                <th>Số lượng (order)</th>
+                                <th>Đơn giá</th>                              
+                                <th>Thành tiền</th> 
+                                <th>Từ ngày< (book)/th>
+                                <th>Đến ngày (book)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.ID">
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Code</td>
+                                    <td><img src="@item.Image" alt="@item.ProductName" height="42" width="42"> </td>
+                                    <td>@item.Quantity</td>
+                                    <td>@string.Format("{0:#,0}", item.Price)</td>
+                                    <td>@string.Format("{0:#,0.00}", item.Total)</td>                                    
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Quantity</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>                    
+                </div>
+
+                <a class="btn btn-primary" href="/Admin/Order/Index">Quay lại</a>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

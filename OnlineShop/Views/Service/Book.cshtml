@@ -1,0 +1,194 @@
+﻿@model Model.ViewModel.BookDetailViewModel
+@{
+    ViewBag.Title = "Dat phong";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    var listImages = (List<string>)ViewBag.ListImages;
+    var detail = ViewBag.Detail;
+    var description = ViewBag.Description;
+}
+
+
+  <!-- Demo CSS -->
+<link rel="stylesheet" href="~/assets/client/flex-slider/css/demo.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="~/assets/client/flex-slider/css/flexslider.css" type="text/css" media="screen" />
+<!-- Modernizr -->
+
+
+<div class="row">
+@using (Html.BeginForm("Book", "Service", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="book-description col-lg-4 col-xs-12" >
+        <span class="title">
+            @Html.DisplayFor(model => model.ServiceName)
+            @Html.HiddenFor(model => model.ServiceName)
+        </span>       
+        
+        @Html.Raw(description)
+        
+       
+    </div>
+
+
+ <div class="book-slide col-lg-8 col-xs-12" >     
+            <div class="flexslider">
+                <ul class="slides">                    
+                    @foreach (var item in listImages)
+                    {
+                        <li>
+                            <img src="@item" />
+                            <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                        </li>
+                    }
+                    
+                </ul>
+            </div>       
+  </div>
+
+
+    <div class="book-action col-lg-4 col-xs-12">
+        
+        <h2>@Html.HiddenFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })</h2>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Giá:
+            </div>
+            <div class="col-md-7">
+                @Html.DisplayFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.Price)
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Ngày nhận:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Ngày trả:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Người lớn:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Trẻ em:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Children, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Children, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Ghi chú:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Họ tên:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.ShipName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ShipName)
+                @Html.ValidationMessageFor(model => model.ShipName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Điện thoại:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.ShipMobile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ShipMobile)
+                @Html.ValidationMessageFor(model => model.ShipMobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row tinhlocachxa">
+            <div class="col-md-5">
+                Email:
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.ShipEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ShipEmail)
+                @Html.ValidationMessageFor(model => model.ShipEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đặt phòng" class="btn btn-success" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="book-detail col-lg-8 col-xs-12">
+       <span class="title">Chi tiết</span> 
+        @Html.Raw(HttpUtility.HtmlDecode(detail))   
+        
+            
+    </div>
+
+}
+
+    
+
+
+
+</div>
+
+
+<!-- FlexSlider -->
+<script defer src="~/assets/client/flex-slider/js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+</script>
+
+
+<!-- Syntax Highlighter -->
+<script type="text/javascript" src="~/assets/client/flex-slider/js/shCore.js"></script>
+<script type="text/javascript" src="~/assets/client/flex-slider/js/shBrushXml.js"></script>
+<script type="text/javascript" src="~/assets/client/flex-slider/js/shBrushJScript.js"></script>
+<!-- Optional FlexSlider Additions -->
+<script src="~/assets/client/flex-slider/js/jquery.easing.js"></script>
+<script src="~/assets/client/flex-slider/js/jquery.mousewheel.js"></script>
+<script defer src="~/assets/client/flex-slider/js/demo.js"></script>

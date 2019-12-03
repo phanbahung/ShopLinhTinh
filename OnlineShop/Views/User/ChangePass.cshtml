@@ -1,0 +1,87 @@
+﻿@model OnlineShop.Models.UserChangePassModel
+
+@{    
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="login_panel">
+        <h3>Đổi mật khẩu</h3>
+        <form action="hello" method="get" id="member">
+            Tên đăng nhập: @Html.TextBoxFor(model => model.UserName, new { @class = "field" })
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </p>
+            Mật khẩu cũ:@Html.PasswordFor(model => model.OldPass, new { @class = "field" })
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.OldPass, "", new { @class = "text-danger" })
+            </p>
+
+            Mật khẩu mới:@Html.PasswordFor(model => model.NewPass1, new { @class = "field" })
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.NewPass1, "", new { @class = "text-danger" })
+            </p>
+
+            Xác nhận mật khẩu:@Html.PasswordFor(model => model.NewPass2, new { @class = "field" })
+            <p class="note">
+                @Html.ValidationMessageFor(model => model.NewPass2, "", new { @class = "text-danger" })
+            </p>
+        </form>
+        <input type="submit" value="Đồng ý" class="btn btn-default" />
+        <p class="note"></p>
+        <p class="note"></p>
+        <p class="note">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+      
+
+    </div>
+
+
+
+    @*<div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OldPass, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OldPass, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OldPass, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewPass1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NewPass1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NewPass1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NewPass2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NewPass2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NewPass2, "", new { @class = "text-danger" })
+            </div>
+        </div
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>*@
+}
+
+

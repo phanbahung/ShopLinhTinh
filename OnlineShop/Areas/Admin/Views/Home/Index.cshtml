@@ -1,0 +1,26 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+    Trang chủ    
+}
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Danh sách Role của bạn</th>           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item</td>              
+            </tr>
+        }
+
+    </tbody>
+</table>

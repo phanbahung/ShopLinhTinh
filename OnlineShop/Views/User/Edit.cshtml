@@ -1,0 +1,90 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Mua ban linh tinh";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+@*@section jsFooter{
+    <script src="/assets/client/js/controller/userController.js"></script>
+}*@
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row am_panel col-md-offset-8">
+        <h3>Quản lý tài khoản</h3>
+        <div class="row">
+            <div class="col-md-2">
+                Họ và tên:
+            </div>
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                Email:
+            </div>
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                Điện thoại:
+            </div>
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                Địa chỉ:
+            </div>
+            <div class="col-md-5">
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="row">
+            <div class="col-md-2">
+                Tỉnh/ thành phố:
+            </div>
+            <div class="col-md-2">               
+                @Html.DropDownListFor(model => model.ProvinceID, null, new { @class = "form-control", @id = "ddlProvince" })                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                Huyện/ thị xã:
+            </div>
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.DistrictID,null, new { htmlAttributes = new { @class = "form-control", @id = "ddlDistrict" } })                 
+            </div>
+        </div>*@
+
+
+        <input type="submit" value="Lưu thay đổi" class="btn btn-default" />
+        <p class="note"></p>
+        <p class="note"></p>
+        <p class="note">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+
+    </div>
+}
+
+
+
+
+
+
